@@ -9,24 +9,21 @@ float avrgXLeft = 0;
 float avrgYLeft = 0;
 float avrgXRight = 0;
 float avrgYRight = 0;
+boolean hasFoundLeft = false;
+boolean hasFoundRight = false;
 
 float acceptedColorRange = 20;
 
-void setup() {
-  size(640, 480);
-
+void initialize() {
   video = new Capture(this, width, height);
   video.start();
-  
-  frameRate(10);
 }
 
-void draw() {
+void updateVideo() {
   if (!video.available()) {
     return;
   }
   
-  clear();
   video.read(); // Read the new frame from the camera
   video.loadPixels();
   
@@ -53,9 +50,11 @@ void calculateAvrgLeft() {
       float diff = distSq(r1, g1, b1, r2, g2, b2); 
       
       if (diff < acceptedColorRange * acceptedColorRange) {
-         stroke(255);
-         strokeWeight(1);
-         point(x, y);
+         if (showFoundPixels) {
+           stroke(255);
+           strokeWeight(1);
+           point(x, y);
+         }
          sumX += x;
          sumY += y;
          pixelCount++;
@@ -64,13 +63,11 @@ void calculateAvrgLeft() {
   }
   
   if (pixelCount > 0) {
-    
     avrgXLeft = sumX / pixelCount;
     avrgYLeft = sumY / pixelCount;
-    fill(255);
-    strokeWeight(4.0);
-    stroke(0);
-    ellipse(avrgXLeft, avrgYLeft, 10, 10);
+    hasFoundLeft = true;
+  } else {
+    hasFoundRight = false; 
   }
 }
 
@@ -92,9 +89,11 @@ void calculateAvrgRight() {
       float diff = distSq(r1, g1, b1, r2, g2, b2); 
       
       if (diff < acceptedColorRange * acceptedColorRange) {
-         stroke(255);
-         strokeWeight(1);
-         point(x, y);
+         if (showFoundPixels) {
+           stroke(255);
+           strokeWeight(1);
+           point(x, y);
+         } 
          sumX += x;
          sumY += y;
          pixelCount++;
@@ -103,13 +102,11 @@ void calculateAvrgRight() {
   }
   
   if (pixelCount > 0) {
-    
     avrgXRight = sumX / pixelCount;
     avrgYRight = sumY / pixelCount;
-    fill(255);
-    strokeWeight(4.0);
-    stroke(0);
-    ellipse(avrgXRight, avrgYRight, 10, 10);
+    hasFoundRight = true;
+  } else {
+    hasFoundRight = false; 
   }
 }
 

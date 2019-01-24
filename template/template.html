@@ -64,9 +64,15 @@ Mit dem Beginn des 20. Jahrhunderts gewann beispielsweise die autobiografische E
             
 			<section id="impl">
 				<h1>Implementationsreport (zum Praxisteil)</h1>
-				<p>
-				Der Implementationsreport umfasst 3000 - 4000 Zeichen.
-				</p>
+				<p>Der Implementationsreport umfasst 3000 - 4000 Zeichen.</p>
+				<p>Die Idee des Projektes ist es, ein Pong Spiel zu entwickeln, bei dem man die Pong-Schläger mit Hilfe von Color Tracking steuert. Genauer heißt dass, man wählt eine Farbe aus, bei der die Durchschnittsposition in dem aktuellen Webcam Bild berechnet werden soll. Diese Position wird auf dem Pongschläger übertragen.</p>
+				<p>Das Color Tracking wird in der Klasse „colorTracking.pde“ umgesetzt. Die Methode „Initialize“ macht das Webcam Bild zugänglich. Generell wird das Webcam Bild in zwei Hälften aufgeteilt, um in jeder Hälfte eine Farbe unabhängig verfolgen zu können. Die Methode „updateVideo“ wird für jeden Frame einmal aufgerufen. Sie macht die Pixeldaten des aktuellen Bilds zugänglich und ruft die Methoden „calculateAvrgRight“ und „calcualteAvrgLeft“ auf. Diese Methoden machen das selbe einmal für die linke und einmal für die rechte Bildhälfte. Sie iterieren über jeden Pixel der entsprechenden Hälfte und überprüfen ob der Farbwert innerhalb der erlaubten Differenz zu dem vorgegebenen Farbwert liegt. Diese erlaubte Differenz nennen wir „acceptedColorRange“. Es wird dazu jeweils der Rot-, Grün- und Blau Wert der Farbe des Pixels von den Rot-, Grün- und Blauwerten der zu verfolgenden Farbe abgezogen und quadriert um keine negativen Werte zu erhalten. Ist das Ergebnis dieser Rechnung kleiner als „acceptedColorRange“ ins Quadrat, wissen wir, dass es sich hier um ein Pixel handelt, den wir als gleiche Farbe zur vorgegeben Farbe akzeptieren. Wir addieren dann den X-Wert des Pixels zu einer Summe aller X-Werte von akzeptieren Pixeln und erhöhen den Zähler der erkannten Pixel um eins. Das selbe geschieht für die Y-Wert. Hat man dies für alle Pixel in einer Hälfte gemacht, kann man die Summe der X-Werte durch die Anzahl der akzeptierten Pixel teilen und erhält die durchschnittliche X-Position der Farbe im Bild. Diese Position machen wir mit den Variable „avrgXLeft“ und „avrgXRight“ für alle Klassen zugänglich.</p>
+				<p>Die aktuelle Farbe, also die Farbe, die wir „tracken“ wollen, kann man auswählen, in dem man mit der Maus auf einen Pixel klickt. Das kann man für beide Bildschirmhälften machen. Der Farbwert, der damit ausgewählt wurde, wird in „colorToTrackLeft“ bzw. „colorToTrackRight“ gespeichert.</p>
+				<p>Mit „+“ und „-“ Tasten kann man die „AcceptedColorRange“ in 10-er Schritten ändern.</p>
+				<p>Dieser simple Color Tracking Algorithmus funktioniert für unser Vorhaben recht gut, wenn man auf zwei Bedingungen achtet. Der Gegenstand, den man verfolgen möchte, sollte eine Farbe haben, die nicht im Hintergrund auftritt. Ist im Bild noch ein anderer Gegenstand mit derselben Farbe, so wir als Durchschnittsposition die mittlere Position der zwei Gegenstände berechnet.
+					<br>Die zweite Schwäche tritt auf, wenn ungleichmäßige Lichtverhältnisse herrschen. Wird die Farbe des verfolgenden Gegenstands in einem dunkleren Bildbereich ausgewählt, so ändert sich der Farbwert des Gegenstands im Bild, wenn man ihn in einen helleren Bereich bewegt. Jedoch ist die eingestellte Farbe immer noch die Farbe des Gegenstands im dunklen Bereich.</p>
+				<p>TODO: Abschnitt zu Pong umsetztung</p>
+			
 			</section>
 			<section id="references">
 				<h1>Referenzen</h1>

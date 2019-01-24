@@ -1,4 +1,4 @@
-boolean showFoundPixels = false;
+boolean showFoundPixels = true;
 
 void setup() {
   size(640, 480);

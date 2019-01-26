@@ -148,6 +148,10 @@ void keyPressed() {
     if (acceptedColorRange > 0) {
        acceptedColorRange -= 10; 
     }
+  } else if(key == 'p'){
+    if(hasFoundRight && hasFoundLeft){
+      gameStarted = !gameStarted;
+    }
   }
 }
 

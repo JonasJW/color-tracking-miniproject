@@ -26,10 +26,12 @@ void updateVideo() {
   video.read();
   video.loadPixels();
   
-  pushMatrix();
-  scale(-1,1);
-  popMatrix();
+  //pushMatrix();
+  //translate(width, 0);
+  //scale(-1,1);
   image(video, 0, 0);
+  //popMatrix();
+  
   
   calculateAvrgLeft();
   calculateAvrgRight();
@@ -58,6 +60,10 @@ void updateTrackColorLeft() {
 }
 
 void calculateAvrgLeft() {
+  if (!hasFoundLeft) {
+    return;
+  }
+  
   int pixelCount = 0;
   float sumX = 0;
   float sumY = 0;
@@ -89,13 +95,14 @@ void calculateAvrgLeft() {
   if (pixelCount > 0) {
     avrgXLeft = sumX / pixelCount;
     avrgYLeft = sumY / pixelCount;
-    hasFoundLeft = true;
-  } else {
-    hasFoundRight = false; 
-  }
+  } 
 }
 
 void calculateAvrgRight() {
+  if (!hasFoundRight) {
+    return;
+  }
+  
   int pixelCount = 0;
   float sumX = 0;
   float sumY = 0;
@@ -131,9 +138,6 @@ void calculateAvrgRight() {
   if (pixelCount > 0) {
     avrgXRight = sumX / pixelCount;
     avrgYRight = sumY / pixelCount;
-    hasFoundRight = true;
-  } else {
-    hasFoundRight = false; 
   }
 }
 
@@ -164,8 +168,10 @@ void mousePressed() {
   color mouseColor = video.pixels[mousePos];
   if (mouseX > width / 2) {
     colorToTrackRight = mouseColor;
+    hasFoundRight = true;
   } else {
     colorToTrackLeft = mouseColor;
     println(colorToTrackLeft);
+    hasFoundLeft = true;
   }
 }

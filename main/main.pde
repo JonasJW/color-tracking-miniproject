@@ -1,19 +1,17 @@
-boolean showFoundPixels = false, gameStarted = false;
+boolean showFoundPixels = true, gameStarted = false;
 
 float x,y,leftPos,rightPos;
 PShape playerRight, playerLeft, ball;
 int ballWidth = 20, score, playerSpeed = 30, ballSpeedX = 20, ballSpeedY = 20, playerHeight = 100, scoreL = 0, scoreR = 0;
 
 void setup() {
-  fullScreen(1);
-  //size(640,480);
+  //fullScreen(1);
+  size(640,480);
  
   x = width/2;
   y = height/2;
   leftPos = y;
   rightPos = y;
-  
-  
   
   frameRate(10);
   initialize();

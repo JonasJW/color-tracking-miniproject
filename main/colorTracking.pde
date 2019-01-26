@@ -26,7 +26,11 @@ void updateVideo() {
   video.read();
   video.loadPixels();
   
+  pushMatrix();
+  scale(-1,1);
+  popMatrix();
   image(video, 0, 0);
+  
   calculateAvrgLeft();
   calculateAvrgRight();
   

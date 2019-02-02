@@ -13,7 +13,7 @@ void setup() {
   leftPos = y;
   rightPos = y;
   
-  frameRate(10);
+  frameRate(25);
   initialize();
   
   playerRight = createShape(RECT, 0, 0, 20, playerHeight);
@@ -126,4 +126,31 @@ void calcPlayerMovement(){
     leftPos += playerSpeed;
   }
   
+}
+
+void keyPressed() {
+  if (key == '+') {
+     acceptedColorRange += 10; 
+  } else if (key == '-') {
+    if (acceptedColorRange > 0) {
+       acceptedColorRange -= 10; 
+    }
+  } else if(key == 'p'){
+    if(hasFoundRight && hasFoundLeft){
+      gameStarted = !gameStarted;
+    }
+  }
+}
+
+void mousePressed() {
+  int mousePos = mouseX + mouseY*video.width;
+  color mouseColor = video.pixels[mousePos];
+  if (mouseX > width / 2) {
+    colorToTrackRight = mouseColor;
+    hasFoundRight = true;
+  } else {
+    colorToTrackLeft = mouseColor;
+    println(colorToTrackLeft);
+    hasFoundLeft = true;
+  }
 }

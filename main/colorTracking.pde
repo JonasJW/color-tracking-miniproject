@@ -148,30 +148,3 @@ float distSq(float x1, float y1, float z1, float x2, float y2, float z2) {
 int getArrayPosition(int x, int y) {
   return x + y * video.width;
 }
-
-void keyPressed() {
-  if (key == '+') {
-     acceptedColorRange += 10; 
-  } else if (key == '-') {
-    if (acceptedColorRange > 0) {
-       acceptedColorRange -= 10; 
-    }
-  } else if(key == 'p'){
-    if(hasFoundRight && hasFoundLeft){
-      gameStarted = !gameStarted;
-    }
-  }
-}
-
-void mousePressed() {
-  int mousePos = mouseX + mouseY*video.width;
-  color mouseColor = video.pixels[mousePos];
-  if (mouseX > width / 2) {
-    colorToTrackRight = mouseColor;
-    hasFoundRight = true;
-  } else {
-    colorToTrackLeft = mouseColor;
-    println(colorToTrackLeft);
-    hasFoundLeft = true;
-  }
-}
